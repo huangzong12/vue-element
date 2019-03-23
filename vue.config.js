@@ -54,8 +54,6 @@ module.exports = {
       .set('COMPONENT', resolve('src/components/common'))
       .set('UTIL', resolve('src/utils'))
       .set('SERVICE', resolve('src/services'));
-    //打包文件带hash
-    config.output.filename('[name].[hash].js').end();
 
     //为了补删除换行而加的配置
     config.module
