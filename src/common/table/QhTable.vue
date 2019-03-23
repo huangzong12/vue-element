@@ -10,7 +10,7 @@
                    :index="scope.$index"
                    :render="item.render">
         </render-td>
-        <span v-else v-text="scope.row[item.prop]"></span>
+        <template v-else>{{scope.row[item.prop]}}</template>
       </template>
     </el-table-column>
   </el-table>

@@ -9,7 +9,7 @@ Object.values(component).forEach(item => {
   Vue.component(item.name, item);
 });
 
-Vue.use(ElementUI);
+Vue.use(ElementUI, {size: 'mini', zIndex: 3000});
 
 Vue.config.productionTip = false;
 
