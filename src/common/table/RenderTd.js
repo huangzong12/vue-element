@@ -5,10 +5,9 @@ export default {
     row: Object,
     render: Function,
     index: Number,
-    column: {
-      type: Object,
-      default: null
-    }
+    column: Object,
+    scopedSlots: Object,
+    slotKey: String
   },
   render: (h, ctx) => {
     const params = {
@@ -16,6 +15,9 @@ export default {
       index: ctx.props.index
     };
     if (ctx.props.column) params.column = ctx.props.column;
-    return ctx.props.render(h, params);
+    if (ctx.props.slotKey && ctx.props.scopedSlots && ctx.props.scopedSlots[ctx.props.slotKey]) {
+      return ctx.props.scopedSlots[ctx.props.slotKey](params)
+    }
+    return ctx.props.render(h, params)
   }
 };
