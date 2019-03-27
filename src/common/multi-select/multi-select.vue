@@ -50,7 +50,8 @@
     },
     methods: {
       handleChange(selected) {
-        this.$emit('input', selected)
+        this.$emit('input', selected);
+        this.$emit('change', selected);
       },
       handleCheckAllChange(val) {
         let array = [];
@@ -59,12 +60,16 @@
         }
         this.isIndeterminate = false;
         this.$emit('input', array);
+        this.$emit('change', array);
       },
       handleCheckedChange(value) {
         let checkedCount = value.length;
         this.checkAll = checkedCount === this.allValues.length;
         this.isIndeterminate = checkedCount > 0 && checkedCount < this.allValues.length;
       }
+    },
+    created() {
+      this.handleCheckedChange(this.value);
     }
   }
 </script>
