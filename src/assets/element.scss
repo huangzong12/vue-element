@@ -1,0 +1,22 @@
+$--color-text-primary: #303133 !default;
+$--color-text-regular: #666666 !default;
+$--color-text-secondary: #909399 !default;
+$--color-text-placeholder: #c0c4cc !default;
+$--color-primary: #1C88EE !default;
+$--color-danger: #ED5E79 !default;
+$--size-base: 12px !default;
+$--input-mini-height: 24px !default;
+$--input-height: 24px !default;
+$--font-size-base: 12px !default;
+$--select-input-font-size: 12px !default;
+$--border-color-hover: #4A90E2 !default;
+$--font-size-small: 12px !default;
+$--input-small-height: 24px !default;
+$--radio-font-size: 12px !default;
+$--checkbox-font-size: 12px !default;
+$--pagination-font-size: 12px !default;
+$--button-font-size: 12px !default;
+$--table-header-background-color: #007fff !default;
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '../../node_modules/element-ui/lib/theme-chalk/fonts';
+@import "../../node_modules/element-ui/packages/theme-chalk/src/index";
