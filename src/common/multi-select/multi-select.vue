@@ -50,6 +50,9 @@
     },
     methods: {
       handleChange(selected) {
+        if (selected.length === 0) {
+          this.isIndeterminate = false;
+        }
         this.$emit('input', selected);
         this.$emit('change', selected);
       },
