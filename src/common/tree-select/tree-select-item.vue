@@ -55,7 +55,7 @@
       },
       handleCheckSelect(val) {
         let obj = this.select.options.find(item => item.value === val.value);
-        if (this.disabled !== true && this.groupDisabled !== true && obj) {
+        if (obj) {
           this.dispatch('ElSelect', 'handleOptionClick', [obj, true]);
         }
       },
@@ -70,7 +70,7 @@
     },
     mounted() {
       if (this.multiple) {
-        this.$watch('select.value', this.setChecked)
+        this.$watch('value', this.setChecked)
       }
     }
   }
