@@ -30,6 +30,11 @@
       },
       multiple: Boolean
     },
+    watch: {
+      options() {
+        this.initData();
+      }
+    },
     methods: {
       getData(data, callback) {
         data.forEach(item => {
@@ -44,9 +49,9 @@
         this.getData(this.options, item => {
           item.currentLabel = item.label;
           array.push(item);
-          this.select.optionsCount++;
-          this.select.filteredOptionsCount++;
         });
+        this.select.optionsCount = array.length;
+        this.select.filteredOptionsCount = array.length;
         this.select.options = array;
         this.select.cachedOptions = array;
       },

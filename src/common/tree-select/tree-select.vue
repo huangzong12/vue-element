@@ -1,6 +1,9 @@
 <template>
   <el-select v-bind="$attrs" v-on="$listeners">
-    <tree-select-item v-bind="$attrs" :options="options"></tree-select-item>
+    <tree-select-item v-if="options.length > 0"
+                      v-bind="$attrs"
+                      :options="options">
+    </tree-select-item>
   </el-select>
 </template>
 
