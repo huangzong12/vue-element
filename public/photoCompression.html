@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      padding: 20px 0;
+    }
+
+    #fileSelect {
+      margin-top: 10px;
+      padding: 10px 5px;
+      border: 1px solid chartreuse;
+      border-radius: 5px;
+      background: green;
+      color: white;
+      text-decoration: none;
+    }
+
+    #fileSelect:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+<img id="test">
+<input type="file" id="fileElem" multiple accept="image/*" style="display:none"
+       onchange="handleFiles(event,this.files)">
+<a href="#" id="fileSelect">点击上传</a>
+</body>
+<script>
+  window.onload = function () {
+    var fileSelect = document.getElementById("fileSelect"),
+      fileElem = document.getElementById("fileElem");
+    fileSelect.addEventListener("click", function (e) {
+      if (fileElem) {
+        fileElem.click(); // input文件上传
+      }
+      e.preventDefault();
+    }, false);
+  }
+
+  function handleFiles(e, files) {
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var imageType = /^image\//;
+      if (!imageType.test(file.type)) {
+        continue;
+      }
+      console.log(file);
+
+      const width = 500;
+      const height = 300;
+      const fileName = file.name;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = event => {
+        const img = new Image();
+        img.src = reader.result;
+        img.onload = () => {
+          const elem = document.createElement('canvas');
+          elem.width = width;
+          elem.height = height;
+          const ctx = elem.getContext('2d');
+          // canvas大小设置
+          ctx.drawImage(img, 0, 0, width, height);
+          // 植入内容
+          document.body.append(elem);
+          //--------- 如果不需要资源上传，只需显示，下面代码可以不要了------
+          ctx.canvas.toBlob((blob) => {
+              const file = new File([blob], fileName, {
+                type: 'image/jpeg',
+                lastModified: Date.now()
+              });
+              document.getElementById('test').src = URL.createObjectURL(file)
+              console.log(file); // file为压缩后的图片
+            },
+            'image/jpeg',
+            // 10e-9 Number类型，值在0与1之间，当请求图片格式为image/jpeg或者image/webp时用来指定图片展示质量。如果这个参数的值不在指定类型与范围之内，则使用默认值，其余参数将被忽略。
+          );
+          // ----------------------
+        };
+        reader.onerror = error => console.log(error);
+      };
+    }
+  }
+</script>
+
+</html>
