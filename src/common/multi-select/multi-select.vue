@@ -1,5 +1,5 @@
 <template>
-  <el-select :value="value" multiple v-bind="$attrs" @change="handleChange">
+  <el-select :value="value" multiple v-bind="$attrs" @change="handleChange" v-draggable class="draggable">
     <check-all :indeterminate="isIndeterminate"
                v-model="checkAll"
                @change="handleCheckAllChange">
@@ -76,7 +76,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   .el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after {
     display: none;
   }

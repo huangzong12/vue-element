@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import Emitter from 'element-ui/src/mixins/emitter.js'
+  import Emitter from '../../utils/emitter';
 
   export default {
     name: 'TreeSelectTree',

@@ -1,11 +1,29 @@
 <template>
   <div id="app">
+    <div style="margin: 50px">
+      <tree-select v-model="treeData" multiple :options="data2"></tree-select>
+      <div>
+        <tree-select v-model="value3" :options="data2" clearable></tree-select>
+        <span>{{value3}}</span>
+      </div>
+
+      <multi-select v-model="multiData" :options="options"></multi-select>
+
+      <el-select v-model="value5" multiple placeholder="请选择" v-draggable class="draggable">
+        <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+        </el-option>
+      </el-select>
+    </div>
+
     <div>
       <qh-select v-model="value"
                  placeholder="请选择"
                  :options="options">
       </qh-select>
-
       <qh-button type="search"></qh-button>
     </div>
 
@@ -52,6 +70,15 @@
     components: {},
     data() {
       return {
+        treeData: [1, 2],
+        value3: 2,
+        multiData: ['选项1', '选项3'],
+        data2: [],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        },
+        value5: [],
         componentId: 'el-button',
         value: '',
         options: [
@@ -73,32 +100,32 @@
             label: '北京烤鸭'
           }],
         tHeader: [
-          {
-            type: 'expand',
-            slotKey: 'expandColumn'
-          },
+          // {
+          //   type: 'expand',
+          //   slotKey: 'expandColumn'
+          // },
           {
             prop: 'customerCode',
             label: '客户编码',
-            width: 200
+            wvalueth: 200
           },
           {
             prop: 'address',
             label: '客户编码',
-            render: (h, params) => {
-              return h('span', {style: {color: 'red'}}, '测试')
-              // return this.$refs.table.$scopedSlots.button(params)
-            }
+            // render: (h, params) => {
+            //   return h('span', {style: {color: 'red'}}, '测试')
+            //   // return this.$refs.table.$scopedSlots.button(params)
+            // }
           },
           {
             prop: 'address',
             label: '客户编码',
-            slotKey: 'test'
+            // slotKey: 'test'
           }
         ],
         tableData: [
           {
-            id: '12987122',
+            value: '12987122',
             name: '好滋好味鸡蛋仔',
             category: '江浙小吃、小吃零食',
             desc: '荷兰优质淡奶，奶香浓而不腻',
@@ -111,6 +138,46 @@
           }
         ]
       }
+    },
+    mounted() {
+      setTimeout(() => {
+        this.data2 = [
+          {
+            value: 1,
+            label: '一级 1',
+            children: [{
+              value: 4,
+              label: '二级 1-1',
+              children: [{
+                value: 9,
+                label: '三级 1-1-1'
+              }, {
+                value: 10,
+                label: '三级 1-1-2'
+              }]
+            }]
+          }, {
+            value: 2,
+            label: '一级 2',
+            children: [{
+              value: 5,
+              label: '二级 2-1'
+            }, {
+              value: 6,
+              label: '二级 2-2'
+            }]
+          }, {
+            value: 3,
+            label: '一级 3',
+            children: [{
+              value: 7,
+              label: '二级 3-1'
+            }, {
+              value: 8,
+              label: '二级 3-2'
+            }]
+          }]
+      }, 2000)
     }
   }
 </script>
@@ -131,20 +198,5 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-  }
-
-  .demo-table-expand {
-    font-size: 0;
-  }
-
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
   }
 </style>
