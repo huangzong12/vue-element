@@ -51,6 +51,7 @@
     methods: {
       handleChange(selected) {
         if (selected.length === 0) {
+          this.checkAll = false;
           this.isIndeterminate = false;
         }
         this.$emit('input', selected);
