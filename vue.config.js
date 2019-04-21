@@ -6,6 +6,8 @@ function resolve(dir) {
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
   runtimeCompiler: true,//是否使用包含运行时编译器的 Vue 构建版本
   // baseUrl: '',
@@ -19,11 +21,10 @@ module.exports = {
   },
   lintOnSave: process.env.NODE_ENV !== 'production',
   configureWebpack: (config) => {
-    //入口文件
     config.entry.app = ['babel-polyfill', './src/main.js'];
     //删除console插件
-    let plugins = [
-      new UglifyJsPlugin({
+    if (process.env.NODE_ENV === 'production') {
+      config.plugins.push(new UglifyJsPlugin({
         uglifyOptions: {
           compress: {
             warnings: false,
@@ -37,11 +38,10 @@ module.exports = {
         },
         sourceMap: false,
         parallel: true,
-      })
-    ];
-    //只有打包生产环境才需要将console删除
-    if (process.env.VUE_APP_build_type == 'production') {
-      config.plugins = [...config.plugins, ...plugins];
+      }))
+    }
+    if (process.env.analyz) {
+      config.plugins.push(new BundleAnalyzerPlugin())
     }
   },
   //允许对内部的 webpack 配置进行更细粒度的修改。
@@ -66,7 +66,7 @@ module.exports = {
         return options;
       });
   },
-  devServer: {//跨域
+  devServer: {
     port: 8081,// 端口号
     open: true, //配置自动启动浏览器
     proxy: {// 配置跨域处理 可以设置多个

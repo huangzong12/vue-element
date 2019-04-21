@@ -64,7 +64,7 @@
 </template>
 
 <script>
-
+  import debounce from 'lodash/debounce'
   export default {
     name: 'app',
     components: {},
@@ -139,7 +139,21 @@
         ]
       }
     },
+    beforeCreate() {
+      this.$set(this, 'testData', []);
+      console.log(this.$set);
+      // this.testData = [];
+      // setInterval(() => {
+      //     this.testData.push(Math.random())
+      //     console.log(this.testData);
+      // }, 2000)
+    },
     mounted() {
+      this.resize = debounce(() => {
+        console.log(1);
+      },50);
+      console.log(this.resize);
+      // console.log(this.testData, '测试大运');
       setTimeout(() => {
         this.data2 = [
           {
