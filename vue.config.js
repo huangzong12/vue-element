@@ -37,7 +37,7 @@ module.exports = {
           }
         },
         sourceMap: false,
-        parallel: true,
+        parallel: true
       }))
     }
     if (process.env.analyz) {
